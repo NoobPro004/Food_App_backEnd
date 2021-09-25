@@ -166,7 +166,9 @@ function signupUser(req,res){
 
     let {email,name,password}=req.body;
 
-    user.push({email,name,password});
+    // user.push({email,name,password});
+    // instead put all db in mongo
+    
     console.log('user',req.body);
     // console.log(user);
     res.json({
