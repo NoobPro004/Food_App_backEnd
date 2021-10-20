@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const validator = require("email-validator");
 const {dbLink}=require('../secret');
+const bcrypt = require("bcrypt");
+
+
+
+
 mongoose
     .connect(dbLink)
     .then(function (connection) {
@@ -61,12 +66,18 @@ const userSchema = new mongoose.Schema({
 // hook
 userSchema.pre('save', function (next) {
     // do stuff
+    const salt = await bcrypt.genSalt(10);
+    // password convert text
+    this.password = await bcrypt.hash(this.password, salt);
     this.confirmPassword = undefined;
     next();
 });
 // document method
 userSchema.methods.resetHandler = function (password, confirmPassword) {
-    this.password = password;
+    const salt = await bcrypt.genSalt(10);
+    // password convert text
+    this.password = await bcrypt.hash(this.password, salt);
+
     this.confirmPassword = confirmPassword;
     this.token = undefined;
 }
