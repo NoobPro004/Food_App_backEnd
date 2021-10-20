@@ -73,7 +73,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/review', reviewRouter);
 app.use('/api/booking', bookingRouter);
 
-app.listen(5000, function () {
+app.listen(3000, function () {
     console.log("server started");
 })
 // 404 page
